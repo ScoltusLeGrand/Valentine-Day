@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour Emeraude ❤️</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background: #0a0a0a url('yummy9.jpeg') center/cover no-repeat fixed;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    position:relative;
+    overflow-x:hidden;
+    padding:20px;
+}
+
+body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg,rgba(0,0,0,0.85),rgba(255,0,120,0.25));
+    backdrop-filter:blur(6px);
+    z-index:1;
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:600px;
+    background:rgba(0,0,0,0.7);
+    backdrop-filter:blur(15px);
+    padding:30px 20px;
+    border-radius:25px;
+    box-shadow:0 0 40px rgba(255,77,166,0.3);
+    text-align:center;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Style de l'écran de verrouillage */
+#lock-screen {
+    padding: 20px;
+}
+
+#lock-screen input {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid #ff2e88;
+    padding: 12px;
+    border-radius: 10px;
+    color: white;
+    margin-bottom: 15px;
+    width: 80%;
+    text-align: center;
+}
+
+/* Cache le contenu secret par défaut */
+#secret-content {
+    display: none;
+}
+
+.romantic-photo{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:15px;
+    border:3px solid #ff4da6;
+    box-shadow:0 0 20px rgba(255,77,166,0.6);
+}
+
+h1{
+    font-size:1.8rem;
+    margin-bottom:10px;
+    background:linear-gradient(45deg,#ff2e88,#ff9ecf);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    font-weight: 800;
+}
+
+#counter{
+    margin-bottom:20px;
+    font-size:0.8rem;
+    color: #ff9ecf;
+    letter-spacing: 1px;
+}
+
+#typedText{
+    font-size:1rem;
+    line-height:1.7;
+    text-align:center;
+    min-height:100px;
+    font-weight: 300;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 30px;
+    border:none;
+    border-radius:50px;
+    background:linear-gradient(45deg,#ff2e88,#ff6ec7);
+    color:white;
+    font-size:0.9rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+button:hover { transform: scale(1.05); box-shadow: 0 0 15px #ff2e88; }
+
+.site-link{
+    display:none;
+    margin: 30px auto 10px;
+    padding: 15px;
+    background: rgba(255, 46, 136, 0.1);
+    border: 1px solid #ff2e88;
+    border-radius: 15px;
+    color:white;
+    font-weight:600;
+    text-decoration:none;
+    font-size: 0.9rem;
+    animation:fadeInLink 1.5s ease forwards;
+}
+
+@keyframes fadeInLink{
+    from{opacity:0; transform: translateY(10px);}
+    to{opacity:1; transform: translateY(0);}
+}
+
+.container::-webkit-scrollbar { width: 4px; }
+.container::-webkit-scrollbar-thumb { background: #ff4da6; border-radius: 10px; }
+</style>
+</head>
+
+<body>
+
+<div class="container" id="mainContainer">
+    
+    <div id="lock-screen">
+        <h1 style="font-size: 1.2rem;">🔐 Accès Réservé</h1>
+        <p style="font-size: 0.7rem; margin-bottom: 20px; color: #ccc;">Veuillez entrer le code secret</p>
+        <input type="password" id="passInput" placeholder="Ton code secret...">
+        <br>
+        <button onclick="unlock()">Ouvrir mon cœur</button>
+    </div>
+
+    <div id="secret-content">
+        <img src="yummy9.jpeg" class="romantic-photo" alt="Emeraude">
+        <h1>Pour toi Emeraude ❤️</h1>
+        <div id="counter"></div>
+        <div id="typedText"></div>
+        <button id="startBtn" onclick="startExperience()">💖 Lire ma déclaration</button>
+        <a href="https://yummuniverse.com" target="_blank" id="magicLink" class="site-link">
+            ✨ Découvrir ton univers
+        </a>
+    </div>
+</div>
+
+<script>
+// --- LOGIQUE DE SÉCURITÉ ---
+function unlock() {
+    const input = document.getElementById('passInput').value;
+    // Hash SHA-256 (Le code ici correspond à '1205' - date de votre début)
+    // Pour changer le code, génère un nouveau hash SHA-256
+   const secureHash = "9a5359526cd40f63be0816656c28bb7f0b5fb563bee0bbac88031c7bbed3f438";
+    const inputHash = CryptoJS.SHA256(input).toString();
+
+    if (inputHash === secureHash) {
+        document.getElementById('lock-screen').style.display = 'none';
+        document.getElementById('secret-content').style.display = 'block';
+        updateCounter();
+    } else {
+        alert("Code incorrect... Seul mon amour connaît le secret.");
+    }
+}
+
+// --- TON CODE DE DÉCLARATION ---
+const text = `D'aussi loin que je me souvienne, cela faisait longtemps que je n'avais plus éprouvé des sentiments aussi profonds pour une femme.
+        Depuis ma rencontre avec toi, toute ma vie a été bouleversée. Je suis passé par toutes les émotions avec toi mon amour,
+        mais je suis sûr d'une chose aujourd'hui : je t'aime profondément.
+        <br><br>
+        Tu es devenue mon rayon de soleil, celle qui occupe mes pensées,
+        celle qui me vient à l'esprit quand je parle de mariage, de famille,
+        de projets et d'avenir.
+        <br><br>
+        Certes, je peux parfois être rigide, ne pas toujours avoir la meilleure manière
+        d'exprimer mes sentiments. Mais si tu demandais au Tout-Puissant de sonder mon cœur
+        depuis le jour où tu y es entrée, tu comprendrais l'intensité de mon amour.
+        <br><br>
+        Je bénis le Seigneur Jésus-Christ d'avoir mis sur mon chemin une femme aussi radieuse,
+        joyeuse, aimante, gentille, d'une splendide beauté, intelligente, indépendante,
+        talentueuse, ingénieuse et polyvalente.
+        <br><br>
+        Je mets ta vie entre Ses mains afin qu'Il t'ouvre encore de grandes portes,
+        t'accorde d'abondantes bénédictions et te fasse grandir davantage.
+        <br><br>
+        Pour la grande dame que tu représentes à mes yeux,
+        j'ai voulu te faire un cadeau digne de ce nom,
+        pas seulement pour ce jour,
+        mais pour chaque jour où mon cœur bat pour toi.
+        <br><br>
+        <b>Happy Valentine’s Day my Future Épouse 💍💎</b>`;
+
+let i = 0;
+const speed = 50; 
+
+function startExperience(){
+    document.getElementById("startBtn").style.display = "none";
+    typeWriter();
+}
+
+function typeWriter(){
+    const display = document.getElementById("typedText");
+    const container = document.getElementById("mainContainer");
+
+    if(i < text.length){
+        if (text.slice(i, i + 4) === "<br>") {
+            display.innerHTML += "<br>"; i += 4;
+        } else if (text.slice(i, i + 3) === "<b>") {
+            display.innerHTML += "<b>"; i += 3;
+        } else if (text.slice(i, i + 4) === "</b>") {
+            display.innerHTML += "</b>"; i += 4;
+        } else {
+            display.innerHTML += text.charAt(i); i++;
+        }
+        container.scrollTop = container.scrollHeight;
+        setTimeout(typeWriter, speed);
+    } else {
+        document.getElementById("magicLink").style.display = "block";
+        container.scrollTop = container.scrollHeight;
+    }
+}
+
+// --- TON COMPTEUR ---
+const startDate = new Date(2025,4,12); 
+
+function updateCounter(){
+    const now = new Date();
+    const diff = now - startDate;
+    const days = Math.floor(diff/(1000*60*60*24));
+    const hours = Math.floor((diff/(1000*60*60))%24);
+    const minutes = Math.floor((diff/(1000*60))%60);
+    const counterEl = document.getElementById("counter");
+    if(counterEl) {
+        counterEl.innerHTML = `💞 Ensemble depuis ${days} jours, ${hours}h et ${minutes}min`;
+    }
+}
+
+setInterval(updateCounter,1000);
+</script>
+
+</body>
+</html>

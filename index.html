@@ -176,7 +176,7 @@ function unlock() {
     const input = document.getElementById('passInput').value;
     // Hash SHA-256 (Le code ici correspond à '1205' - date de votre début)
     // Pour changer le code, génère un nouveau hash SHA-256
-   const secureHash = "9a5359526cd40f63be0816656c28bb7f0b5fb563bee0bbac88031c7bbed3f438";
+   const secureHash = "17be2ba0616640b000f889218bf5047ba4ed06ea29933cc7ba5034a82009a388";
     const inputHash = CryptoJS.SHA256(input).toString();
 
     if (inputHash === secureHash) {
